@@ -1,0 +1,14 @@
+Viviamo nell'era della distrazione. Messaggi, video, notifiche, social media si contendono costantemente la nostra attenzione.
+La soglia dell'attenzione, soprattutto per le nuove generazioni, è crollata proprio a causa di questi motivi. Il fatto è che le stesse aziende che si lamentano che le nuove generazioni non sanno mantenere l'attenzione sono anche la causa del crollo della capacità attentiva.
+Vogliono consumatori distratti e lavoratori attenti. Peccato che consumatori e lavoratori siano la stessa cosa.
+C'è un altro problema, però: che l'intelligenza artificiale potrebbe amplificare questo fenomeno. In che modo?
+Punto primo: la personalizzazione diventa sempre più precisa. L'intelligenza artificiale è in grado di adattare contenuti e stimoli in base a come siamo fatti noi personalmente.
+Davanti a una tale capacità comunicativa di stimoli, tutto il resto ci sembrerebbe estremamente noioso. Volevo dire che la nostra capacità di attenzione su ciò che non ci intrattiene minimamente crollerebbe del tutto.
+Il secondo problema si chiama cognitive offloading, che è la delega delle attività cognitive.
+Il nostro cervello è una macchina estremamente energivora. Per questo motivo è progettato per cercare delle scorciatoie, per pensare di meno, non di più. Quando trova uno strumento esterno a cui possiamo delegare determinate cose, lo utilizza.
+E mentre prima alcuni strumenti digitali si prendevano soltanto parte delle nostre attività, in questo caso rischiamo di delegare una cosa molto più importante, vale a dire il pensiero.
+Essendo che il nostro cervello è un organo plastico, il rischio concreto è quello di diventare più stupidi, che è una cosa che in realtà sta già avvenendo secondo alcuni studi.
+Esiste una strategia che però potrebbe aiutare a limitare questo problema: la gamification, che non sarebbe altro che l'utilizzo di attività ludiche all'interno di contesti che di solito non le prevedono.
+È in grado di aumentare il coinvolgimento diretto nelle attività che reputiamo noiose e ripetitive. Permette di migliorare la motivazione, creare dei feedback costanti. Crea un contesto in cui la persona partecipa più volentieri.
+Achivia è una web app che permette di fare proprio questo, trasformando task e obiettivi in quest. Raccoglie dati sulle performance, permette di lasciare feedback immediati. Trasforma in un gioco attività quotidiane, aziendali e non.
+Potete andare su achivia.org. Gratuita fino a cinque membri, e stiamo per finire la prima fase di beta test.
