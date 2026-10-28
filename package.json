@@ -1,0 +1,23 @@
+{
+  "name": "video-tiktok",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "remotion studio src/index.ts",
+    "check": "tsc --noEmit",
+    "render": "remotion render src/index.ts TikTok out/tiktok.mp4 --codec=h264 --crf=18",
+    "still": "remotion still src/index.ts TikTok out/preview.png --frame=150",
+    "render:ffmpeg": "python3 scripts/render_ass.py"
+  },
+  "dependencies": {
+    "remotion": "4.0.539",
+    "@remotion/cli": "4.0.539",
+    "react": "19.1.0",
+    "react-dom": "19.1.0"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3",
+    "@types/react": "19.1.0",
+    "@types/react-dom": "19.1.0"
+  }
+}
