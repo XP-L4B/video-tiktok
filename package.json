@@ -7,8 +7,10 @@
     "check": "tsc --noEmit",
     "render": "remotion render src/index.ts TikTok out/tiktok.mp4 --codec=h264 --crf=18",
     "still": "remotion still src/index.ts TikTok out/preview.png --frame=150",
-    "render:ffmpeg": "python3 scripts/render_split.py",
-    "story": "python3 scripts/render_story.py"
+    "render:ffmpeg": "python3 scripts/render_director.py",
+    "story": "python3 scripts/render_story.py",
+    "render:director": "python3 scripts/render_director.py",
+    "transcribe": "python3 scripts/transcribe.py"
   },
   "dependencies": {
     "remotion": "4.0.539",

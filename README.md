@@ -1,33 +1,31 @@
-# TikTok · Storytelling a schermo diviso
+# Montaggio narrativo dinamico · TikTok
 
-Montaggio verticale 1080 × 1920, 30 fps, circa 2 minuti. La metà superiore è un filmato illustrato animato; la metà inferiore mostra il video originale. I sottotitoli dinamici occupano la fascia in fondo all’animazione, senza coprire il volto.
+Master verticale 1080×1920, 30 fps, circa 2 minuti. Il presentatore alterna primo piano, split laterale, maschera circolare e picture-in-picture. Le grafiche spiegano distrazione, personalizzazione, delega cognitiva e gamification; la dimostrazione dell’app usa la ripresa reale del video.
 
-Le 28 scene seguono il parlato: notifiche che assediano un personaggio, consumatori e lavoratori che coincidono, interessi elaborati dall’IA per creare un feed personale, pezzi del cervello delegati a una macchina, risparmio di energia e trasformazione delle attività in un percorso di quest. I titoli sono brevi; oggetti, spostamenti, percorsi e trasformazioni raccontano il contenuto.
+## Rigenerazione
 
-## Preparazione
+Servono Python 3.10+, FFmpeg con libx264 e Node.js 22+ per l’anteprima Remotion.
 
-Richiede Node.js 22+, Python 3.10+ e FFmpeg con libass.
+1. Copiare il filmato originale in `public/source.mp4`.
+2. Installare le dipendenze: `python3 -m pip install -r requirements.txt`.
+3. Rigenerare e controllare i sottotitoli con `python3 scripts/transcribe.py`.
+4. Esportare il montaggio con `python3 scripts/render_director.py`.
 
-1. Copia il video originale in `public/source.mp4`.
-2. Esegui `npm ci` e `python3 -m pip install -r requirements.txt`.
-3. Esegui `npm run story` per generare `public/story-top.mp4`.
-4. Esegui `npm run dev` per aprire il montaggio in Remotion Studio.
-5. Esegui `npm run render` per esportare con Remotion, oppure `npm run render:ffmpeg` per esportare senza browser.
-
-L’esportatore FFmpeg produce `out/tiktok-storytelling.mp4` e `out/captions.srt`.
+Il master è `out/tiktok-director.mp4` e viene copiato in `public/edit-master.mp4`. La pipeline pulisce leggermente la voce, uniforma il volume e aggiunge whoosh e click sintetizzati a basso livello. Non contiene musica di terzi.
 
 ## Modifiche
 
-- `storyboard/scenes.json`: tempi, brevi titoli e tipo delle scene.
-- `scripts/render_story.py`: disegni vettoriali, personaggio e animazioni per fotogramma. Usa Pillow e FFmpeg; non richiede Chromium.
-- `src/words.json`: sottotitoli con tempi parola per parola.
-- `src/TikTok.tsx`: composizione Remotion 50/50 e sottotitoli.
-- `scripts/render_split.py`: esportazione equivalente con FFmpeg/libass.
+- `storyboard/director.json`: tempi, layout, concetti e titoli.
+- `scripts/render_director.py`: composizione per fotogramma, maschere, crop, easing, diagrammi, sottotitoli e sound design.
+- `src/words.json`: parole e timestamp, da rigenerare dal filmato e rileggere prima della pubblicazione.
+- `scripts/transcribe.py`: trascrizione italiana con faster-whisper medium.
 
-Dopo ogni modifica alle illustrazioni o alle scene, riesegui `npm run story`. I file MP4 e le dipendenze non sono inclusi in Git. Non sono richiesti servizi a pagamento o chiavi API.
+I diagrammi rappresentano concetti e non dati quantitativi. L’indicazione dei cinque membri e della beta riprende il parlato originale.
 
-## Verifica e limiti
+## Remotion
 
-Controllo TypeScript e sintassi Python verificati. Il video viene esportato e controllato con FFmpeg. Il render Remotion richiede una verifica locale perché Chromium non si avvia nell’ambiente di preparazione.
+`npm ci` e `npm run dev` aprono il master in Remotion Studio. Remotion è qui un contenitore di anteprima/esportazione del master: il montaggio dettagliato è modificabile nel codice Python e nel JSON di regia. Non è una timeline nativa After Effects.
 
-Le illustrazioni rappresentano concetti del parlato; non sono grafici di dati scientifici. La dashboard è un’illustrazione, non una schermata reale dell’app. La trascrizione automatica è stata corretta nei termini evidenti: rileggere i sottotitoli prima della pubblicazione. Piano gratuito e beta riprendono le dichiarazioni nel video originale.
+## Verifica
+
+Il master viene renderizzato con FFmpeg; sono controllati sintassi Python, TypeScript, durata, tracce audio/video e fotogrammi dei layout. La precisione della trascrizione automatica resta da verificare editorialmente. I file video generati sono esclusi da Git.
