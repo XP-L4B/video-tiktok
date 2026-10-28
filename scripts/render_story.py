@@ -6,7 +6,7 @@ import math,json,pathlib,subprocess,sys,functools,time
 R=pathlib.Path(__file__).resolve().parents[1]; OUT=R/'out';OUT.mkdir(exist_ok=True)
 SCENES=json.loads((R/'storyboard/scenes.json').read_text())
 W,H,FPS,N=1080,960,30,3594
-BG='#f4f3ec';INK='#162d36';TEAL='#2b9b88';MINT='#9ce5c9';PURPLE='#8676ce';LAV='#e2dcf5';GOLD='#efba58';SKIN='#edb494';MUTED='#aab6b6';RED='#dc7869';WHITE='#ffffff'
+BG='#101b2b';INK='#294454';TEAL='#31b6a0';MINT='#9ce5c9';PURPLE='#8575da';LAV='#e2dcf5';GOLD='#efba58';SKIN='#edb494';MUTED='#aab6b6';RED='#dc7869';WHITE='#ffffff'
 FONT='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf';BOLD='/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf'
 @functools.lru_cache(None)
 def font(n,b=True):return ImageFont.truetype(BOLD if b else FONT,n)
@@ -38,24 +38,29 @@ class HiDraw:
 def sprite(kind,state=0):
  im=Image.new('RGBA',(1080,1080));im.info['supersample']=3;d=HiDraw(im,3)
  if kind=='person':
-  # A single recurring character ties the visual story together.
   col=TEAL if state<10 else PURPLE
-  d.ellipse((85,328,280,347),fill='#162d3613')
-  line(d,[(149,264),(142,320)],INK,22);line(d,[(211,264),(223,320)],INK,22)
-  rr(d,(111,312,151,331),10,INK);rr(d,(216,312,258,331),10,INK)
-  d.polygon([(131,155),(229,155),(252,265),(107,265)],fill=col)
-  line(d,[(135,174),(99,227),(75,199)],col,26);line(d,[(222,175),(264,220),(291,183)],col,26)
-  circ(d,75,199,13,SKIN);circ(d,291,183,13,SKIN)
-  rr(d,(163,133,197,173),12,SKIN)
-  circ(d,180,100,57,SKIN);circ(d,123,105,10,SKIN);circ(d,237,105,10,SKIN)
-  d.pieslice((123,34,239,150),180,352,fill=INK)
-  d.polygon([(125,91),(125,69),(152,48),(201,47),(234,69),(234,93),(217,79),(212,65),(174,76),(142,72)],fill=INK)
+  # Adult editorial character, with layered clothing and sculpted features.
+  d.ellipse((64,319,299,345),fill='#00000018')
+  rr(d,(125,242,164,323),13,INK);rr(d,(198,242,237,323),13,INK)
+  rr(d,(108,312,166,332),9,INK);rr(d,(198,312,259,332),9,INK)
+  rr(d,(104,161,256,272),38,col)
+  d.polygon([(158,161),(180,190),(202,161),(195,258),(164,258)],fill=WHITE)
+  d.polygon([(154,160),(178,191),(158,213),(139,169)],fill='#208b80')
+  d.polygon([(206,160),(182,191),(202,213),(221,169)],fill='#208b80')
+  line(d,[(117,185),(91,229),(63,215)],col,29)
+  line(d,[(243,185),(267,228),(295,206)],col,29)
+  circ(d,63,215,13,SKIN);circ(d,295,206,13,SKIN)
+  rr(d,(162,135,198,176),12,SKIN)
+  circ(d,180,105,55,SKIN);circ(d,125,108,9,SKIN);circ(d,235,108,9,SKIN)
+  d.pieslice((125,38,235,148),180,350,fill=INK)
+  d.polygon([(127,103),(130,66),(158,46),(202,48),(231,69),(232,101),(216,81),(210,66),(178,80),(145,75),(139,105)],fill=INK)
+  line(d,[(146,96),(164,93)],INK,3);line(d,[(197,93),(215,96)],INK,3)
   if state%10==1:
-   line(d,[(150,105),(162,105)],INK,4);line(d,[(197,105),(209,105)],INK,4)
+   line(d,[(150,108),(162,108)],INK,3);line(d,[(198,108),(210,108)],INK,3)
   else:
-   circ(d,157,104,5,INK);circ(d,203,104,5,INK)
-  d.arc((162,126,200,151) if state%10==2 else (162,110,200,139),200 if state%10==2 else 15,340 if state%10==2 else 160,fill=INK,width=3)
-  line(d,[(180,104),(177,118),(184,118)],'#cd9176',2)
+   circ(d,156,107,4,INK);circ(d,204,107,4,INK)
+  line(d,[(180,107),(176,121),(183,122)],'#c88c75',2)
+  d.arc((164,123,199,145),200 if state%10==2 else 15,340 if state%10==2 else 160,fill=INK,width=2)
  elif kind=='phone':
   rr(d,(79,12,282,344),32,INK);rr(d,(88,24,273,332),24,WHITE)
   rr(d,(143,28,219,42),7,INK);rr(d,(150,316,211,322),3,INK)
@@ -146,6 +151,8 @@ def put(im,kind,x,y,size=300,state=0,rot=0,alpha=1):
  p=scaled(kind,state,int(size))
  if rot:p=p.rotate(rot,Image.Resampling.BICUBIC,expand=True)
  if alpha<1:p=p.copy();p.putalpha(p.getchannel('A').point(lambda q:int(q*alpha)))
+ shadow=Image.new('RGBA',p.size,(0,0,0,0));shadow.putalpha(p.getchannel('A').point(lambda v:v//5));shadow=shadow.filter(ImageFilter.GaussianBlur(7))
+ im.alpha_composite(shadow,(round(x-p.width/2)+3,round(y-p.height/2)+10))
  im.alpha_composite(p,(round(x-p.width/2),round(y-p.height/2)))
 def dotline(im,a,b,t,col=TEAL,width=5,dashed=False):
  d=ImageDraw.Draw(im);b=pos(a,b,clamp(t))
@@ -164,21 +171,25 @@ def token(im,kind,a,b,t,size=70,state=0):
   x,y=pos(a,b,ease(t));y-=55*math.sin(t*math.pi);put(im,kind,x,y,size,state=state)
 def sparkle(im,x,y,r=16,col=GOLD):
  d=ImageDraw.Draw(im);d.polygon([(x,y-r),(x+r*.22,y-r*.22),(x+r,y),(x+r*.22,y+r*.22),(x,y+r),(x-r*.22,y+r*.22),(x-r,y),(x-r*.22,y-r*.22)],fill=col)
-base=Image.new('RGBA',(W,H),BG);d=ImageDraw.Draw(base)
-# A quiet editorial canvas with a stage; no panels competing with the story.
-for xx in range(55,1080,42):
- for yy in range(245,860,42):circ(d,xx,yy,1,'#dce3dc')
-d.ellipse((155,768,930,842),fill='#e5e9de')
-
+import numpy as np
+_y,_x=np.mgrid[0:H,0:W];_glow=np.exp(-(((_x-540)/600)**2+((_y-510)/430)**2))
+_rgb=np.empty((H,W,4),dtype=np.uint8)
+for _c,(_lo,_hi) in enumerate([(13,29),(22,49),(36,67)]):_rgb[:,:,_c]=_lo+(_hi-_lo)*_glow
+_rgb[:,:,3]=255
+base=Image.fromarray(_rgb,'RGBA');d=ImageDraw.Draw(base)
+for xx in range(70,1080,60):
+ for yy in range(290,820,60):circ(d,xx,yy,1,'#29394b')
+d.ellipse((155,780,930,824),fill='#142536')
 
 
 def frame(t):
  scene=next((s for s in SCENES if s['start']<=t<s['end']),SCENES[-1]);i=SCENES.index(scene);u=t-scene['start'];dur=scene['end']-scene['start'];p=clamp(u/dur);k=scene['kind'];im=base.copy();d=ImageDraw.Draw(im)
  # Chapter marks and very short titles. Everything below is told by moving objects.
  for j in range(5):
-  rr(d,(64+j*196,62,232+j*196,68),3,TEAL if j<=scene['chapter'] else '#dbe2d9')
+  rr(d,(64+j*196,62,232+j*196,68),3,TEAL if j<=scene['chapter'] else '#2a3a4b')
  title_y=151+18*(1-ease(u/.45))
- text(im,540,title_y,scene['title'],37 if len(scene['title'])>25 else 42,INK)
+ text(im,540,title_y,scene['title'].capitalize() if k!='end' else scene['title'],39 if len(scene['title'])>25 else 46,'#f4f5f7')
+ text(im,540,220,['L’ECONOMIA DELL’ATTENZIONE','IL FEED SU MISURA','IL COSTO DELLA DELEGA','PROGETTARE IL COINVOLGIMENTO','ACHIVIA'][scene['chapter']],16,'#7c9aaa',bold=False)
 
  bob=math.sin(t*2.5)*5;blink=1 if t%4.6>4.43 else (2 if scene['chapter']<3 else 0)
  enter=ease(u/.6)
@@ -192,7 +203,7 @@ def frame(t):
   elif k=='attention':
    put(im,'phone',830,548,300,rot=-6+math.sin(u)*3)
    for j in range(7):
-    phase=(u*.45+j/7)%1;dotline(im,(650,480),(805,450+80*math.sin(j)),1,'#c8d9cf',2);circ(d,mix(650,800,phase),mix(480,450+80*math.sin(j),phase),5,TEAL)
+    phase=(u*.45+j/7)%1;dotline(im,(650,480),(805,450+80*math.sin(j)),1,'#44616e',2);circ(d,mix(650,800,phase),mix(480,450+80*math.sin(j),phase),5,TEAL)
    d.arc((312,378,746,810),205,335,fill=TEAL,width=9)
   else:
    put(im,'phone',817,540,285,rot=-8)
@@ -252,9 +263,9 @@ def frame(t):
   put(im,'brain',260,555,405);put(im,'chip',815,555,360)
   dotline(im,(425,555),(645,555),ease(u/.8),PURPLE,5,True)
   for j in range(5 if k=='thought' else 3):
-   q=clamp((u-.4-j*.35)/2.3);token(im,'puzzle',(255+(j%2)*45,490+(j//2)*48),(790+(j%2)*37,495+(j//2)*50),q,85)
+   q=clamp((u-(max(0,72.56-scene['start']) if k=='thought' else .4)-j*.35)/2.3);token(im,'task' if k=='offload' else 'puzzle',(255+(j%2)*45,490+(j//2)*48),(790+(j%2)*37,495+(j//2)*50),q,85)
   for j in range(4):
-   q=clamp((u-j*.3)/2.4);circ(d,230+(j%2)*68,515+(j//2)*83,17,'#b4b7b7' if q>.65 else TEAL)
+   q=clamp((u-j*.3)/2.4);circ(d,230+(j%2)*68,515+(j//2)*83,8,TEAL)
   circle_pulse(im,815,555,180,u,PURPLE)
  elif k=='energy':
   put(im,'brain',540,490,430)
@@ -268,7 +279,7 @@ def frame(t):
   route(im,pts,ease(u/2),MUTED,7)
   if u>1:route(im,[(290,550),(790,550)],ease((u-1)/1.2),TEAL,12)
   q=(u*.4)%1;circ(d,mix(300,780,q),550,13,GOLD)
-  put(im,'coin',540,550,90+int(8*math.sin(u*4)))
+  circ(d,540,550,14,TEAL)
  elif k=='delegate':
   put(im,'person',230,610,400,state=blink);put(im,'monitor',820,590,385)
   token(im,'task',(270,450),(800,470),clamp(u/2.4),175)
@@ -301,7 +312,7 @@ def frame(t):
   if q>.8:
    for j in range(5):sparkle(im,650+j*60,350+math.sin(j*2)*40,12*ease((q-.8)*5))
  elif k=='journey':
-  pts=[(140,745),(315,665),(505,700),(695,515),(875,390)];route(im,pts,1,'#d3d8cd',14);route(im,pts,ease(p),TEAL,14)
+  pts=[(140,745),(315,665),(505,700),(695,515),(875,390)];route(im,pts,1,'#496173',14);route(im,pts,ease(p),TEAL,14)
   for j,(x,y) in enumerate(pts):
    circ(d,x,y,29,TEAL if p*4>=j else WHITE,TEAL,4)
    if p*4>=j:line(d,[(x-11,y),(x-2,y+10),(x+14,y-12)],WHITE,5)
@@ -310,7 +321,7 @@ def frame(t):
   put(im,'person',loc[0],loc[1]-115+math.sin(u*9)*5,260,state=blink)
   put(im,'trophy',900,346,190,rot=math.sin(t)*4)
  elif k=='feedback':
-  centers=[(245,550),(540,400),(830,590)];route(im,[(245,550),(540,400),(830,590),(540,785),(245,550)],1,'#d4ded2',6)
+  centers=[(245,550),(540,400),(830,590)];route(im,[(245,550),(540,400),(830,590),(540,785),(245,550)],1,'#496173',6)
   for j,kind in enumerate(['task','check','coin']):put(im,kind,*centers[j],260 if j==0 else 220,rot=math.sin(u*2+j)*3)
   q=(u*.45)%1;points=centers+[(540,785),centers[0]];n=int(q*4);xy=pos(points[n],points[n+1],(q*4)%1);circ(d,*xy,13,TEAL)
   sparkle(im,865,450,18+6*math.sin(u*6))
@@ -342,13 +353,18 @@ def frame(t):
   put(im,'quest',540,470,290,state=4,rot=math.sin(t)*3)
  elif k=='end':
   put(im,'trophy',540,460,365,rot=math.sin(u*1.6)*4)
-  for j in range(5):put(im,'person',230+j*155,739+math.sin(u*2+j)*5,200,state=(10 if j%2 else 0)+blink)
+  for j in range(5):put(im,'person',230+j*155,739+math.sin(u*2+j)*5,200,state=(10 if j%2 else 0)+blink,alpha=ease((t-116.46-j*.08)/.35))
+  if t>=117.72:text(im,540,622,'BETA TEST',22,'#9ce5c9')
   for j in range(9):
    a=j*math.tau/9+u*.22;xx=540+math.cos(a)*310;yy=470+math.sin(a)*170;sparkle(im,xx,yy,8+3*math.sin(u*4+j),PURPLE if j%2 else GOLD)
 
- # A short wipe at cuts makes the sequence read as an edited film.
- if u<.22 and i>0:
-  edge=int(1080*(1-ease(u/.22)));d.rectangle((0,270,edge,875),fill=BG)
+ # Gentle camera drift adds continuity while preserving clear framing.
+ q=1+.014*math.sin(math.pi*clamp(p))
+ cropw=int(W/q);croph=int(H/q)
+ im=im.crop(((W-cropw)//2,(H-croph)//2,(W+cropw)//2,(H+croph)//2)).resize((W,H),Image.Resampling.LANCZOS)
+ if u<.32 and i>0:
+  previous=frame(scene['start']-.001).convert('RGBA')
+  im=Image.blend(previous,im,ease(u/.32))
  return im.convert('RGB')
 
 def circle_pulse(im,x,y,r,t,col):
