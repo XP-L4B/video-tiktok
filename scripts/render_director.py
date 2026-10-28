@@ -187,6 +187,14 @@ def presenter(src,rect,t,isapp,zoom):
  cx=sw*.5;cy=sh*.5 if isapp else sh*(.5-.17*ease((aspect-.55)/.45))
  l=min(sw-cw,max(0,cx-cw/2));top=min(sh-ch,max(0,cy-ch/2))
  tile=src.crop((l,top,l+cw,top+ch)).resize((w,h),Image.Resampling.LANCZOS).convert('RGBA');tile.putalpha(mask(w,h,r));return tile,(round(x),round(y))
+# Whisper may tokenize Italian elisions separately; join them before grouping.
+joined=[]
+for word in WORDS:
+ w=dict(word)
+ if joined and w['text'].startswith(("'",'’')):
+  joined[-1]['text']+=w['text'];joined[-1]['end']=w['end']
+ else:joined.append(w)
+WORDS=joined
 blocks=[];b=[]
 for w in WORDS:
  if b and (len(' '.join(z['text'] for z in b+[w]))>34 or w['start']-b[0]['start']>2.4 or w['start']-b[-1]['end']>.6):blocks.append(b);b=[]
