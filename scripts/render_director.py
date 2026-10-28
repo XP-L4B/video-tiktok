@@ -278,7 +278,7 @@ def render():
  finally:encoder.stdin.close();decoder.stdout.close()
  if encoder.wait()!=0:raise RuntimeError('Encoding failed')
  decoder.wait();sounds()
- filt='[1:a]highpass=f=70,afftdn=nf=-30:nr=6,acompressor=threshold=0.07:ratio=2.5:attack=20:release=150:makeup=5,aresample=48000[voice];[voice][2:a]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.95:latency=1[a]'
+ filt='[1:a]highpass=f=70,afftdn=nf=-30:nr=6,acompressor=threshold=0.07:ratio=2.5:attack=20:release=150:makeup=5,aresample=48000[voice];[voice][2:a]amix=inputs=2:duration=first:normalize=0,alimiter=limit=0.8:level=0:latency=1[a]'
  subprocess.run(['ffmpeg','-y','-v','error','-i',str(O/'director-silent.mp4'),'-i',str(source),'-i',str(O/'sound-design.wav'),'-filter_complex',filt,'-map','0:v:0','-map','[a]','-c:v','copy','-c:a','aac','-b:a','128k','-t','119.8','-movflags','+faststart',str(O/'tiktok-director.mp4')],check=True)
  import shutil
  shutil.copyfile(O/'tiktok-director.mp4',R/'public/edit-master.mp4')
