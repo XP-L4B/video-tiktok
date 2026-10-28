@@ -1,0 +1,7 @@
+node_modules/
+public/*.mp4
+out/
+__pycache__/
+*.pyc
+.DS_Store
+src/words.json

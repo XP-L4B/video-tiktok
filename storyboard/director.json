@@ -1,0 +1,205 @@
+[
+  {
+    "start": 0,
+    "end": 2.2,
+    "layout": "full",
+    "kind": "hook",
+    "title": "La tua attenzione"
+  },
+  {
+    "start": 2.2,
+    "end": 7.96,
+    "layout": "left",
+    "kind": "distraction",
+    "title": "Tutto la richiede"
+  },
+  {
+    "start": 7.96,
+    "end": 12.3,
+    "layout": "circle",
+    "kind": "focus",
+    "title": "Attenzione frammentata"
+  },
+  {
+    "start": 12.3,
+    "end": 17.7,
+    "layout": "full",
+    "kind": "paradox",
+    "title": "Il paradosso"
+  },
+  {
+    "start": 17.7,
+    "end": 21.7,
+    "layout": "right",
+    "kind": "roles",
+    "title": "Due richieste opposte"
+  },
+  {
+    "start": 21.7,
+    "end": 24.26,
+    "layout": "full",
+    "kind": "same",
+    "title": "Le stesse persone"
+  },
+  {
+    "start": 24.26,
+    "end": 29.1,
+    "layout": "circle",
+    "kind": "amplify",
+    "title": "E con l’IA?"
+  },
+  {
+    "start": 29.1,
+    "end": 33.46,
+    "layout": "pip",
+    "kind": "personalize",
+    "title": "Sempre più preciso"
+  },
+  {
+    "start": 33.46,
+    "end": 38.6,
+    "layout": "left",
+    "kind": "feed",
+    "title": "Costruito su di te"
+  },
+  {
+    "start": 38.6,
+    "end": 43.75,
+    "layout": "right",
+    "kind": "contrast",
+    "title": "Tutto il resto?"
+  },
+  {
+    "start": 43.75,
+    "end": 49.38,
+    "layout": "circle",
+    "kind": "drain",
+    "title": "Quando manca lo stimolo"
+  },
+  {
+    "start": 49.38,
+    "end": 53.92,
+    "layout": "pip",
+    "kind": "offload",
+    "title": "Cognitive offloading"
+  },
+  {
+    "start": 53.92,
+    "end": 57.8,
+    "layout": "left",
+    "kind": "energy",
+    "title": "Pensare richiede energia"
+  },
+  {
+    "start": 57.8,
+    "end": 62.2,
+    "layout": "circle",
+    "kind": "shortcut",
+    "title": "La scorciatoia"
+  },
+  {
+    "start": 62.2,
+    "end": 65.48,
+    "layout": "right",
+    "kind": "delegate",
+    "title": "Delegare a uno strumento"
+  },
+  {
+    "start": 65.48,
+    "end": 69.08,
+    "layout": "pip",
+    "kind": "tools",
+    "title": "Prima: singoli compiti"
+  },
+  {
+    "start": 69.08,
+    "end": 72.56,
+    "layout": "circle",
+    "kind": "thought",
+    "title": "Ora il rischio cambia"
+  },
+  {
+    "start": 72.56,
+    "end": 74.2,
+    "layout": "full",
+    "kind": "thoughtfull",
+    "title": "Il pensiero"
+  },
+  {
+    "start": 74.2,
+    "end": 78.65,
+    "layout": "left",
+    "kind": "plastic",
+    "title": "Il cervello è plastico"
+  },
+  {
+    "start": 78.65,
+    "end": 82.06,
+    "layout": "circle",
+    "kind": "risk",
+    "title": "Il rischio cognitivo"
+  },
+  {
+    "start": 82.06,
+    "end": 85.92,
+    "layout": "full",
+    "kind": "turn",
+    "title": "Una possibile strategia"
+  },
+  {
+    "start": 85.92,
+    "end": 90,
+    "layout": "pip",
+    "kind": "gamification",
+    "title": "Gamification"
+  },
+  {
+    "start": 90,
+    "end": 95.6,
+    "layout": "left",
+    "kind": "journey",
+    "title": "Coinvolgere nelle attività"
+  },
+  {
+    "start": 95.6,
+    "end": 99.06,
+    "layout": "circle",
+    "kind": "feedback",
+    "title": "Un ciclo di feedback"
+  },
+  {
+    "start": 99.06,
+    "end": 101.98,
+    "layout": "right",
+    "kind": "engagement",
+    "title": "Partecipare più volentieri"
+  },
+  {
+    "start": 101.98,
+    "end": 107.26,
+    "layout": "app",
+    "kind": "appquest",
+    "title": "Da task a quest"
+  },
+  {
+    "start": 107.26,
+    "end": 111.24,
+    "layout": "app",
+    "kind": "appdata",
+    "title": "Performance e feedback"
+  },
+  {
+    "start": 111.24,
+    "end": 114.4,
+    "layout": "pip",
+    "kind": "everyday",
+    "title": "Dentro la quotidianità"
+  },
+  {
+    "start": 114.4,
+    "end": 119.8,
+    "layout": "full",
+    "kind": "end",
+    "title": "achivia.org"
+  }
+]
